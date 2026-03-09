@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pure Chroma - Precision Artistic Pigments & Workshops</title>
+  <link rel="icon" href="favicon.ico">
+  <style>
+    :root {
+      --primary-color: #26a0d8;
+      --primary-light-color: #84c3e0;
+      --primary-dark-color: #1a7097;
+      --secondary-color: #3f57bf;
+      --accent-color: #dc6e3b;
+      --hero-bg-color: #1a1a2e;
+      --hero-text-color: #ffffff;
+      --card-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      --border-radius: 8px;
+      --section-spacing: 6rem;
+      --font-heading: 'Lora', serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--primary-dark-color);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      background-color: var(--hero-bg-color);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .navbar-brand {
+      color: var(--hero-text-color);
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links {
+      display: none; /* Hidden by default for mobile */
+      width: 100%;
+      flex-direction: column;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+
+    .nav-links a {
+      color: var(--primary-light-color);
+      padding: 0.8rem 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background-color: rgba(255,255,255,0.1);
+      color: var(--hero-text-color);
+    }
+
+    .nav-toggle {
+      background: none;
+      border: none;
+      color: var(--hero-text-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: block; /* Show on mobile */
+    }
+
+    .cta-button-nav {
+      margin-left: auto;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .cta-button-nav:hover {
+      background-color: darken(var(--accent-color), 10%);
+      transform: translateY(-2px);
+    }
+
+    /* Desktop styles */
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        margin-top: 0;
+      }
+
+      .nav-toggle {
+        display: none;
+      }
+      
+      .cta-button-nav {
+         margin-left: 1.5rem; /* Add spacing on desktop */
+      }
+    }
+
+    .hero-section {
+      background-color: var(--hero-bg-color);
+      color: var(--hero-text-color);
+      padding: var(--section-spacing) 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-content {
+      padding: 1.5rem;
+      max-width: 900px;
+    }
+
+    .hero-content h1 {
+      color: var(--hero-text-color);
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-content p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      color: var(--primary-light-color);
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      background-color: var(--primary-color);
+      color: var(--hero-text-color);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      display: inline-block;
+      border: 2px solid transparent;
+    }
+
+    .cta-button:hover {
+      background-color: var(--primary-dark-color);
+      transform: translateY(-2px);
+    }
+
+    .cta-button.outline {
+      background-color: transparent;
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .cta-button.outline:hover {
+      background-color: var(--primary-color);
+      color: var(--hero-text-color);
+      transform: translateY(-2px);
+    }
+
+    .hero-image {
+      margin-top: 3rem;
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .hero-image:hover {
+        transform: scale(1.02);
+    }
+
+    section {
+      padding: var(--section-spacing) 0;
+      text-align: center;
+    }
+
+    .section-heading {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #1a1a1a;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -10px;
+      width: 60px;
+      height: 4px;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    .bento-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr; /* Default to single column for mobile */
+      text-align: left;
+    }
+
+    @media (min-width: 768px) {
+      .bento-featured {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, minmax(200px, 1fr));
+      }
+      .bento-featured .tall-featured-card {
+        grid-row: span 2;
+      }
+      .bento-3-1 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .bento-3-1 .wide-bottom-card {
+        grid-column: span 3;
+      }
+    }
+
+    .card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease;
+    }
+
+    .card.hover-effect:hover {
+      transform: scale(1.02);
+    }
+
+    .card-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.7rem;
+      color: var(--primary-dark-color);
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .card .icon-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 64px;
+      height: 64px;
+      border: 2px solid var(--primary-color);
+      border-radius: 50%;
+      margin: 0 auto 1.5rem auto;
+      flex-shrink: 0;
+    }
+
+    .card .icon-container svg {
+      width: 40px;
+      height: 40px;
+      color: var(--primary-color);
+    }
+
+    .small-card-top .icon-container { margin-top: 1rem; }
+    .small-card-bottom .icon-container { margin-top: 1rem; }
+
+    .price {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-top: 1rem;
+    }
+
+    .product-cta {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.8rem 1.8rem;
+        background-color: var(--secondary-color);
+        color: white;
+        border-radius: 50px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .product-cta:hover {
+        background-color: darken(var(--secondary-color), 10%);
+        transform: translateY(-2px);
+    }
+
+    .wide-bottom-card {
+        text-align: center;
+        padding: 3rem;
+        background-image: linear-gradient(135deg, var(--secondary-color), var(--primary-dark-color));
+        color: white;
+    }
+
+    .wide-bottom-card h3 {
+        color: white;
+    }
+
+    .wide-bottom-card p {
+        color: var(--primary-light-color);
+    }
+
+    .wide-bottom-card .cta-button {
+      background-color: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+      margin-top: 2rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .testimonials-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .testimonial-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      padding: 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .testimonial-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      border: 3px solid var(--primary-color);
+    }
+
+    .testimonial-card blockquote {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .testimonial-card .author {
+      font-weight: 700;
+      color: var(--primary-dark-color);
+      font-size: 1rem;
+    }
+
+    /* Footer styling */
+    footer {
+      background-color: #212529; /* Dark background for contrast */
+      color: #ffffff;
+      padding: var(--section-spacing) 0 2rem 0;
+      text-align: center;
+    }
+
+    footer .container {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      footer .container {
+        grid-template-columns: repeat(3, 1fr);
+        align-items: start;
+        text-align: left;
+      }
+    }
+
+    footer h4 {
+      color: var(--primary-light-color);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    footer p, footer a {
+      color: #cccccc;
+      font-size: 0.95rem;
+    }
+
+    footer a:hover {
+      color: var(--primary-color);
+    }
+
+    footer .brand-col {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    footer .legal-links {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+     @media (min-width: 768px) {
+        footer .legal-links {
+            justify-content: flex-start;
+        }
+     }
+    footer .legal-text {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    /* Cookie Consent */
+    #cookie-consent-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      z-index: 10000;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    }
+    #cookie-consent-banner p {
+      margin: 0;
+      flex-grow: 1;
+      font-size: 0.9rem;
+    }
+    #cookie-consent-banner button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    #cookie-consent-banner button:hover {
+      background-color: var(--primary-dark-color);
+    }
+  </style>
+  
+  
+  
+</head>
+<body>
+  <header>
+    <div class="container navbar">
+      <a href="#" class="navbar-brand">Pure Chroma</a>
+      <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#products">Products</a>
+        <a href="#workshops">Workshops</a>
+        <a href="#reviews">Reviews</a>
+      </nav>
+      <a href="#products" class="cta-button-nav">Shop Now</a>
+    </div>
+  </header>
+<main>
+<style>
+  #purechroma-privacy-policy {
+    padding-top: 7rem;
+  }
+</style>
+<section id="purechroma-privacy-policy">
+    <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">Privacy Policy for PureChroma</h2>
+
+    <p style="font-size: 1rem; margin-bottom: 2rem; line-height: 1.6;">
+        At PureChroma, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, purechroma.com, which serves as both an e-commerce platform for artistic supplies and a portal for educational content including color theory workshops. We understand the importance of your personal data and strive to handle it with the utmost care and in compliance with applicable data protection laws, including GDPR.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">1. Information We Collect</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.6;">
+        We collect various types of information from and about you depending on how you interact with our site and services.
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 2rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">Personal Information You Provide:</strong> This includes information you voluntarily provide when you make a purchase, register for an account, subscribe to our newsletter, participate in a workshop, fill out a form, engage in custom color mixing consultations, or otherwise communicate with us. This may include your name, shipping address, billing address, email address, phone number, payment information (processed by secure third-party processors), and any other information you choose to provide.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">Transaction Data:</strong> When you purchase products or services on our site, we collect information related to that transaction, including product details, purchase price, date of purchase, and payment method details (though full payment card numbers are handled by our payment processors and not stored on our servers).
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">Workshop and Educational Content Interaction Data:</strong> If you enroll in our color theory workshops or access educational materials, we may collect information regarding your progress, participation, and feedback to improve our services.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">Automatically Collected Information:</strong> When you access our online platform, we may automatically collect certain information about your device and browsing actions. This includes your IP address, browser type, operating system, referring URLs, pages viewed, the dates and times of your visits, and other usage data through cookies, web beacons, and similar technologies. This data helps us understand how our site is used and to improve your experience.
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">2. How We Use Your Information</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.6;">
+        We use the information we collect for various purposes, primarily to provide and improve our services, communicate with you, and ensure a secure and efficient online experience.
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 2rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">To Provide and Manage Our Services:</strong> Fulfilling your orders for art pigments and custom color mixes, processing payments, delivering products, managing workshop registrations, and providing customer support.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">To Personalize Your Experience:</strong> Tailoring product recommendations, custom color mixing suggestions, and educational content based on your interests and past interactions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">For Communication:</strong> Sending order confirmations, shipping updates, marketing communications (if you have opted in), newsletters, and important information about our services or changes to our policies.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">For Analytics and Improvement:</strong> Analyzing website usage and trends to improve our product offerings, website functionality, user experience, and the effectiveness of our workshops and educational content.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">For Security and Fraud Prevention:</strong> Protecting against fraudulent transactions, unauthorized access to our systems, and other illegal activities.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">To Comply with Legal Obligations:</strong> Adhering to applicable laws, regulations, and legal processes.
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">3. Sharing Your Information</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.6;">
+        We do not sell your personal data to third parties. We may share your information with trusted third parties in the following circumstances:
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 2rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">Service Providers:</strong> We may share your information with third-party vendors, consultants, and other service providers who perform services on our behalf, such as payment processing, shipping, website hosting, data analysis, email delivery, and marketing assistance. These service providers are contractually obligated to protect your information and not use it for any other purpose.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or government agency).
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">Business Transfers:</strong> In the event of a merger, acquisition, or sale of all or a portion of our assets, your personal information may be transferred as part of that transaction. We will notify you via email and/or a prominent notice on our website of any such change in ownership or control of your personal information.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">With Your Consent:</strong> We may share your information with third parties when we have your explicit consent to do so.
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">4. Your Data Protection Rights (GDPR)</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.6;">
+        If you are located in the European Economic Area (EEA), you have certain data protection rights. We aim to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Data.
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 2rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">The Right to Access:</strong> You have the right to request copies of your personal data.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">The Right to Rectification:</strong> You have the right to request that we correct any information you believe is inaccurate or complete information you believe is incomplete.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">The Right to Erasure:</strong> You have the right to request that we erase your personal data, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">The Right to Restrict Processing:</strong> You have the right to request that we restrict the processing of your personal data, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">The Right to Object to Processing:</strong> You have the right to object to our processing of your personal data, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong style="font-weight: 600;">The Right to Data Portability:</strong> You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.
+        </li>
+    </ul>
+    <p style="font-size: 1rem; margin-bottom: 2rem; line-height: 1.6;">
+        If you wish to exercise any of these rights, please contact us using the details provided in the "Contact Us" section below.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">5. Data Security</h3>
+    <p style="font-size: 1rem; margin-bottom: 2rem; line-height: 1.6;">
+        We implement appropriate technical and organizational security measures designed to protect the security of any personal information we process. However, please be aware that despite our efforts, no electronic transmission over the Internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorized third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">6. Third-Party Websites</h3>
+    <p style="font-size: 1rem; margin-bottom: 2rem; line-height: 1.6;">
+        Our site may contain links to third-party websites or services that are not owned or controlled by PureChroma. We are not responsible for the privacy practices or the content of these third-party sites. We encourage you to review the privacy policies of any third-party websites you visit.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">7. Children's Privacy</h3>
+    <p style="font-size: 1rem; margin-bottom: 2rem; line-height: 1.6;">
+        Our online platform is not intended for children under the age of 16. We do not knowingly collect personally identifiable information from children under 16. If we become aware that we have collected Personal Information from a child under 16 without verification of parental consent, we take steps to remove that information from our servers.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">8. Changes to This Privacy Policy</h3>
+    <p style="font-size: 1rem; margin-bottom: 2rem; line-height: 1.6;">
+        We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "last updated" date at the top of this policy. You are advised to review this Privacy Policy periodically for any changes.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">9. Contact Us</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.6;">
+        If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:
+    </p>
+    <p style="font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.6;">
+        PureChroma<br>
+        East New York Avenue<br>
+        New York, New York, 11213<br>
+        USA
+    </p>
+</section>
+</main>
+<footer>
+    <div class="container">
+      <div class="footer-col brand-col">
+        Pure Chroma
+        <p style="margin-top:0.5rem; font-size: 0.9em;">Advancing the science of art.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <p>East New York Avenue, New York, NY 11213, USA</p>
+        <p>Phone: +1 305-278-0586</p>
+        <p>Email: <a href="mailto:info@DOMAIN_NAME_REPLACE">info@DOMAIN_NAME_REPLACE</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <p><a href="#services">Our Services</a></p>
+        <p><a href="#products">Our Products</a></p>
+        <p><a href="#workshops">Workshops & Learning</a></p>
+        <p><a href="#reviews">Customer Reviews</a></p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="legal-links">
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./tos.html">Terms of Service</a>
+      </div>
+      <p class="legal-text">&copy; 2024 Pure Chroma. All rights reserved.</p>
+    </div>
+    
+    <div id="cookie-consent-banner" style="display: none;">
+      <p>We use cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our <a href="./privacy.html" style="color: var(--accent-color);">Privacy Policy</a>.</p>
+      <button id="accept-cookies">Accept</button>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navToggle = document.querySelector('.nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      const cookieBanner = document.getElementById('cookie-consent-banner');
+      const acceptCookiesBtn = document.getElementById('accept-cookies');
+      const cookieName = 'consent_Pure Chroma_cookies'; // Unique cookie name prefix
+
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+
+      // Close mobile nav when a link is clicked
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+          }
+        });
+      });
+
+      // Cookie Consent Logic
+      function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+          let date = new Date();
+          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+          expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+      }
+
+      function getCookie(name) {
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      }
+
+      if (!getCookie(cookieName)) {
+        cookieBanner.style.display = 'flex';
+      }
+
+      acceptCookiesBtn.addEventListener('click', () => {
+        setCookie(cookieName, 'accepted', 90); // Store for 90 days
+        cookieBanner.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
