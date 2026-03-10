@@ -532,7 +532,15 @@
       background-color: var(--primary-dark-color);
     }
   </style>
-  
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YTP08B4056"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YTP08B4056');
+</script>
   
   
 </head>
